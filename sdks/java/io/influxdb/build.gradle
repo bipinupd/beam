@@ -1,0 +1,16 @@
+plugins { id 'org.apache.beam.module' }
+applyJavaNature(automaticModuleName: 'org.apache.beam.sdk.io.influxdb')
+provideIntegrationTestingDependencies()
+enableJavaPerformanceTesting()
+
+description = "Apache Beam :: SDKs :: Java :: IO :: InfluxDB"
+ext.summary = "IO to read and write on InfluxDB"
+
+dependencies {
+  compile project(path: ":sdks:java:core", configuration: "shadow")
+  compile 'org.influxdb:influxdb-java:2.17'
+  testCompile library.java.junit
+  testRuntimeOnly project(":runners:direct-java")
+  testCompile group: 'org.apache.beam', name: 'beam-runners-direct-java', version: '2.15.0'
+  testCompile project(path: ":sdks:java:io:common", configuration: "testRuntime")
+}
